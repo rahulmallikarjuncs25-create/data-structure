@@ -1,0 +1,122 @@
+CODE:
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node *next;
+};
+struct Node* createNode(int data) {
+    struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+struct Node* insertEnd(struct Node *head, int data) {
+    struct Node *newNode = createNode(data);
+    if (head == NULL)
+        return newNode;
+
+    struct Node *temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = newNode;
+    return head;
+}
+void display(struct Node *head) {
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    while (head != NULL) {
+        printf("%d -> ", head->data);
+        head = head->next;
+    }
+    printf("NULL\n");
+}
+void sortList(struct Node *head) {
+    struct Node *i, *j;
+    int temp;
+    for (i = head; i != NULL; i = i->next) {
+        for (j = i->next; j != NULL; j = j->next) {
+            if (i->data > j->data) {
+                temp = i->data;
+                i->data = j->data;
+                j->data = temp;
+            }
+        }
+    }
+}
+struct Node* reverseList(struct Node *head) {
+    struct Node *prev = NULL, *curr = head, *next = NULL;
+
+    while (curr != NULL) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+struct Node* concatenate(struct Node *head1, struct Node *head2) {
+    if (head1 == NULL)
+        return head2;
+    struct Node *temp = head1;
+    while (temp->next != NULL)
+        temp = temp->next;
+    temp->next = head2;
+    return head1;
+}
+int main() {
+    struct Node *list1 = NULL, *list2 = NULL;
+    int n, data;
+    printf("Enter number of elements in first list: ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        printf("Enter data: ");
+        scanf("%d", &data);
+        list1 = insertEnd(list1, data);
+    }
+    printf("\nEnter number of elements in second list: ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        printf("Enter data: ");
+        scanf("%d", &data);
+        list2 = insertEnd(list2, data);
+    }
+    printf("\nFirst List: ");
+    display(list1);
+    printf("\nSecond List: ");
+    display(list2);
+    sortList(list1);
+    printf("\nSorted First List: ");
+    display(list1);
+    list1 = reverseList(list1);
+    printf("\nReversed First List: ");
+    display(list1);
+    list1 = concatenate(list1, list2);
+    printf("\nConcatenated List: ");
+    display(list1);
+    return 0;
+}
+OUTPUT:
+Enter number of elements in first list: 3
+Enter data: 5
+Enter data: 
+6
+Enter data: 8
+
+Enter number of elements in second list: 3
+Enter data: 8
+Enter data: 9
+Enter data: 4
+
+First List: 5 -> 6 -> 8 -> NULL
+
+Second List: 8 -> 9 -> 4 -> NULL
+
+Sorted First List: 5 -> 6 -> 8 -> NULL
+
+Reversed First List: 8 -> 6 -> 5 -> NULL
+
+Concatenated List: 8 -> 6 -> 5 -> 8 -> 9 -> 4 -> NULL
