@@ -1,3 +1,4 @@
+CODE:
 #include <stdio.h>
 #include <stdlib.h>
 struct Node {
@@ -112,9 +113,7 @@ int main() {
     return 0;
 }
 
-
-output:
-
+OUTPUT:
 ----- MENU -----
 1. Insert at First
 2. Insert at Position
@@ -169,11 +168,3 @@ Enter value: 6
 5. Exit
 Enter your choice: 4
 Linked List: 9 -> 3 -> 5 -> 8 -> 6 -> NULL
-
------ MENU -----
-1. Insert at First
-2. Insert at Position
-3. Insert at End
-4. Display List
-5. Exit
-Enter your choice: 4
